@@ -1,18 +1,10 @@
-import { generateCourse } from './services/openai';
+import FormGenerate from './components/FormGenerate';
 
 function App() {
-	const generate = async (): Promise<void> => {
-		const course = await generateCourse(
-			'Write a way for me to create an HTTP Server using Pythong.',
-		);
-		console.log(course);
-	};
-
 	return (
-		<>
-			<h1>Hello</h1>
-			<button onClick={generate}>Generate</button>
-		</>
+		<div className="mt-14 mr-auto ml-auto h-full w-[85%]">
+			<FormGenerate />
+		</div>
 	);
 }
 
