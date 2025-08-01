@@ -1,0 +1,131 @@
+# Output Monitoring
+
+Compiled in this file, the different tries I did with specific topic and difficulty.
+
+## 1st Prompt
+{
+    "id": "chatcmpl-Bz1iDdlZ912u9V9dnlJPhPgOGPgx6",
+    "object": "chat.completion",
+    "created": 1753884289,
+    "model": "o4-mini-2025-04-16",
+    "choices": [
+        {
+            "index": 0,
+            "message": {
+            "role": "assistant",
+            "content": <see bottom result>
+            "refusal": null,
+            "annotations": []
+        },
+        "finish_reason": "stop"
+        }
+    ],
+    "usage": {
+        "prompt_tokens": 1204,
+        "completion_tokens": 2745,
+        "total_tokens": 3949,
+        "prompt_tokens_details": {
+        "cached_tokens": 0,
+        "audio_tokens": 0
+    },
+    "completion_tokens_details": {
+        "reasoning_tokens": 1152,
+        "audio_tokens": 0,
+        "accepted_prediction_tokens": 0,
+        "rejected_prediction_tokens": 0
+        }
+    },
+    "service_tier": "default",
+    "system_fingerprint": null
+}
+
+### Outputes Course
+"{
+  "title": "HTTP Server with Python (Beginner)",
+  "chapters": [
+    {
+      "title": "Introduction to Python’s Built-in HTTP Server",
+      "description": "Learn how to start a minimal HTTP server using Python’s http.server module and understand basic HTTP concepts.",
+      "body": "In this chapter, you will learn how to use Python's built-in http.server module to quickly start an HTTP server.\n\n1. Open your terminal or command prompt.\n2. Verify Python 3 is installed: run `python3 --version` (or `python --version`).\n3. Navigate to any directory that contains some files (HTML, images, etc.).\n4. Start the server: `python3 -m http.server 8000`.\n5. Open your browser and go to `http://localhost:8000` to see the directory listing and files.\n6. To stop the server, press `Ctrl+C` in the terminal.\n\nThis demonstrates how easy it is to serve static files with just one command.",
+      "exercises": [
+        "Start the server on port 9000 and verify you can browse files.",
+        "Navigate to a different folder and serve its contents.",
+        "Try accessing a non-existent file and observe the 404 error.",
+        "Stop and restart the server using different ports."
+      ],
+      "resources": [
+        {
+          "title": "Python http.server Documentation",
+          "link": "https://docs.python.org/3/library/http.server.html"
+        },
+        {
+          "title": "MDN Web Docs – HTTP Overview",
+          "link": "https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview"
+        }
+      ]
+    },
+    {
+      "title": "Serving Custom Static Content",
+      "description": "Organize your files and serve a simple HTML page, CSS, and images using the built-in server.",
+      "body": "In this chapter, you will create a small website folder and serve its contents.\n\n1. In your project folder, create subfolder `site`.\n2. Inside `site`, create `index.html` with basic HTML boilerplate and a heading.\n3. Add a CSS file `styles.css` and reference it from `index.html`.\n4. Place an image file `logo.png` in the same folder.\n5. From the parent directory, run `python3 -m http.server 8000`.\n6. Open `http://localhost:8000/site/` and verify your HTML, CSS, and image load correctly.\n\nYou now have a simple static website served by Python.",
+      "exercises": [
+        "Add a second HTML page and link to it from `index.html`.",
+        "Create a subdirectory `assets` and serve JavaScript files.",
+        "Experiment with relative and absolute URLs in your pages.",
+        "Modify CSS to change the page layout and refresh to see updates."
+      ],
+      "resources": [
+        {
+          "title": "W3Schools – HTML Tutorial",
+          "link": "https://www.w3schools.com/html/"
+        },
+        {
+          "title": "W3Schools – CSS Tutorial",
+          "link": "https://www.w3schools.com/css/"
+        }
+      ]
+    },
+    {
+      "title": "Building a Custom Request Handler",
+      "description": "Learn to write a Python script using BaseHTTPRequestHandler to return dynamic responses instead of static files.",
+      "body": "In this chapter, you'll write your own HTTP server script.\n\n1. Create a new file `custom_server.py`.\n2. Import the required classes:\n   ```python\n   from http.server import HTTPServer, BaseHTTPRequestHandler\n   ```\n3. Define a handler class:\n   ```python\n   class SimpleHandler(BaseHTTPRequestHandler):\n       def do_GET(self):\n           self.send_response(200)\n           self.send_header('Content-type', 'text/plain')\n           self.end_headers()\n           self.wfile.write(b'Hello, World!')\n   ```\n4. Set up and start the server:\n   ```python\n   if __name__ == '__main__':\n       server = HTTPServer(('localhost', 8000), SimpleHandler)\n       print('Server running on http://localhost:8000')\n       server.serve_forever()\n   ```\n5. Run `python3 custom_server.py` and visit `http://localhost:8000`.\n\nYou're now returning a custom plain-text response for every GET request.",
+      "exercises": [
+        "Change the response to return HTML instead of plain text.",
+        "Add custom headers (e.g., `X-Custom-Header`).",
+        "Log each request path to the console.",
+        "Handle a POST request by overriding `do_POST` and returning a confirmation."
+      ],
+      "resources": [
+        {
+          "title": "BaseHTTPRequestHandler Class Reference",
+          "link": "https://docs.python.org/3/library/http.server.html#http.server.BaseHTTPRequestHandler"
+        },
+        {
+          "title": "Python HTTPServer Example",
+          "link": "https://realpython.com/python-http-server/"
+        }
+      ]
+    },
+    {
+      "title": "Routing and Dynamic Content",
+      "description": "Implement simple routing logic and return different content based on the request path, including current date and time.",
+      "body": "In this chapter, you'll extend your handler to support multiple routes.\n\n1. In `custom_server.py`, import `datetime`:\n   ```python\n   import datetime\n   ```\n2. Modify `do_GET` to inspect `self.path`:\n   ```python\n   def do_GET(self):\n       if self.path == '/hello':\n           content = '<h1>Hello, Visitor!</h1>'\n       elif self.path == '/time':\n           now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')\n           content = f'<p>Current server time: {now}</p>'\n       else:\n           self.send_response(404)\n           self.send_header('Content-type', 'text/html')\n           self.end_headers()\n           self.wfile.write(b'<h1>404 Not Found</h1>')\n           return\n       self.send_response(200)\n       self.send_header('Content-type', 'text/html')\n       self.end_headers()\n       self.wfile.write(content.encode())\n   ```\n3. Restart the server and visit `/hello` and `/time` in your browser.\n\nYou now have basic routing and can serve dynamic content.",
+      "exercises": [
+        "Add a `/date` route that returns only the current date.",
+        "Parse query parameters (e.g., `/hello?name=Alice`) and personalize the greeting.",
+        "Serve a JSON response at route `/api/data`.",
+        "Experiment with other status codes like 301 redirects."
+      ],
+      "resources": [
+        {
+          "title": "urllib.parse — Parsing URLs",
+          "link": "https://docs.python.org/3/library/urllib.parse.html"
+        },
+        {
+          "title": "Working with Dates and Times in Python",
+          "link": "https://docs.python.org/3/library/datetime.html"
+        }
+      ]
+    }
+  ]
+}"
