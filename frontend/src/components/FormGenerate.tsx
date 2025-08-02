@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { generateCourse } from '../services/openai';
 import type { Course, InputCourse } from '../types/common.types';
-const sampleCourse = {
+
+const sampleCourse: Course = {
 	title: 'Creating an HTTP Server Using Python',
 	chapters: [
 		{
@@ -56,23 +57,35 @@ const sampleCourse = {
 function FormGenerate() {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(false);
-	const [course, setCourse] = useState({});
+	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
 		difficulty: 'beginner',
 	});
 
+	const handleForm = (
+		event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+	) => {
+		const { name, value } = event.target;
+		setInput({ ...input, [name]: value });
+	};
+
 	const generate = async (): Promise<void> => {
+		if (input.topic.trim() === '' || input.difficulty.trim() === '')
+			return alert('Please fill out all information!');
+
 		setLoading(true);
-		const course = await generateCourse(
-			'Write a way for me to create an HTTP Server using Python.',
-		);
+
+		const course = await generateCourse(input.topic, input.difficulty);
+
 		if (course) {
 			setCourse(course);
-			return setLoading(false);
+			setLoading(false);
+			return;
 		}
 
-		return setError(true);
+		setError(true);
+		setLoading(false);
 	};
 
 	if (loading) {
@@ -109,14 +122,20 @@ function FormGenerate() {
 						value={input.topic}
 						className="input w-full"
 						placeholder="e.g., HTTP Server, Git"
+						onChange={(event) => handleForm(event)}
 					/>
 				</fieldset>
 				<fieldset className="fieldset">
 					<legend className="fieldset-legend">Difficulty Level</legend>
-					<select value={input.difficulty} className="select">
-						<option value={'beginner'}>Beginner</option>
-						<option value={'intermediate'}>Intermediate</option>
-						<option value={'advanve'}>Advance</option>
+					<select
+						name="difficulty"
+						value={input.difficulty}
+						className="select"
+						onChange={(event) => handleForm(event)}
+					>
+						<option value="beginner">Beginner</option>
+						<option value="intermediate">Intermediate</option>
+						<option value="advance">Advance</option>
 					</select>
 				</fieldset>
 				<button className="btn btn-soft btn-primary" onClick={generate}>
@@ -125,16 +144,32 @@ function FormGenerate() {
 			</form>
 			{course ? (
 				<div className="mt-4 flex w-full flex-col">
-					<h1 className="mb-2.5 text-2xl">{course.title}</h1>
+					<h1 className="mb-2.5 text-center text-3xl">{course.title}</h1>
 					{course.chapters &&
 						course.chapters.map((chapter) => (
 							<>
 								<div className="card bg-base-300 rounded-box mb-2.5 p-10">
-									<h2 className="pb-1.5">{chapter.title}</h2>
-									<p className="pb-1.5">{chapter.description}</p>
+									<h2 className="pb-1.5 text-2xl">{chapter.title}</h2>
+									<p className="pb-4 text-lg">{chapter.description}</p>
+									<div className="divider"></div>
 									<pre className="wrap-break-word whitespace-pre-wrap">
 										{chapter.body}
 									</pre>
+									<div className="divider"></div>
+									<h2 className="pb-1.5 text-2xl">Exercises</h2>
+									<ul className="list-disc">
+										{chapter.exercises &&
+											chapter.exercises.map((exercise) => <li>{exercise}</li>)}
+									</ul>
+									<h2 className="pb-1.5 text-xl">Resources</h2>
+									<ul className="list-disc">
+										{chapter.resources &&
+											chapter.resources.map((resource) => (
+												<li className="link">
+													<a href={resource.link}>{resource.title}</a>
+												</li>
+											))}
+									</ul>
 								</div>
 								<div className="divider"></div>
 							</>

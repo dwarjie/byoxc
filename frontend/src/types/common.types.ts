@@ -5,12 +5,7 @@ export interface Chapter {
 	description: string;
 	body: string;
 	exercises: string[];
-	resources: [
-		{
-			title: string;
-			link: string;
-		},
-	];
+	resources: { title: string; link: string }[];
 }
 
 export interface Course {
