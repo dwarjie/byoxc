@@ -10,14 +10,14 @@ Compiled in this file, the different tries I did with specific topic and difficu
     "model": "o4-mini-2025-04-16",
     "choices": [
         {
-            "index": 0,
-            "message": {
+          "index": 0,
+          "message": {
             "role": "assistant",
             "content": <see bottom result>
             "refusal": null,
             "annotations": []
-        },
-        "finish_reason": "stop"
+          },
+          "finish_reason": "stop"
         }
     ],
     "usage": {
