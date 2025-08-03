@@ -17,7 +17,10 @@ Your task:
     - Do not put the steps in a list or numbered list.
     - If there are code snippets provided, always include an explanation.
     - Construct each step that can be easy to follow for human 
-  - **exercises**: A list (1 to 5) of tasks/projects to reinforce the chapter content.
+  - **exercises**: A list (1 to 5) of exercises to reinforce the chapter content. You must follow the following rules:
+    - Exercise should not be exactly the same in any of the provided step-by-step guide at the body
+    - Must be related to the knowledge that was gained for the current chapter
+    - You can add a more advanced exercise (as a bonus exercise to the user) but indicate that it's not required and that it is more advance. They can do it if they want more challenge.
   - **resources**: Provide relevant external links with titles (e.g., videos, docs, articles) to help with the exercises.
 
 Rules:
