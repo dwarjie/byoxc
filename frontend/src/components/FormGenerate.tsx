@@ -1,6 +1,12 @@
 import { useState, type ChangeEvent } from 'react';
-import { generateCourse } from '../services/openai';
-import type { Course, InputCourse } from '../types/common.types';
+import { getCourse } from '../services/openai.service';
+import type {
+	Course,
+	InputCourse,
+	PreferenceQuestion,
+} from '../types/common.types';
+import UserQuestion from './UserQuestion';
+import type { ChatCompletionMessageParam } from 'openai/resources';
 
 const sampleCourse: Course = {
 	title: 'Creating an HTTP Server Using Python',
@@ -55,13 +61,15 @@ const sampleCourse: Course = {
 };
 
 function FormGenerate() {
-	const [loading, setLoading] = useState(false);
-	const [error, setError] = useState(false);
+	const [questions, setQuestions] = useState<PreferenceQuestion | null>(null);
 	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
 		difficulty: 'beginner',
 	});
+
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(false);
 
 	const handleForm = (
 		event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -70,13 +78,17 @@ function FormGenerate() {
 		setInput({ ...input, [name]: value });
 	};
 
+	const handleQuestion = (answer: string) => {
+		console.log(answer);
+	};
+
 	const generate = async (): Promise<void> => {
 		if (input.topic.trim() === '' || input.difficulty.trim() === '')
 			return alert('Please fill out all information!');
 
 		setLoading(true);
 
-		const course = await generateCourse(input.topic, input.difficulty);
+		const course = await getCourse(input.topic, input.difficulty);
 
 		if (course) {
 			setCourse(course);
@@ -90,7 +102,17 @@ function FormGenerate() {
 
 	if (loading) {
 		return (
-			<div className="flex h-full w-full flex-col items-center justify-center gap-2.5">
+			<div className="flex h-full w-full flex-col items-center justify-center gap-4">
+				{questions ? (
+					<>
+						<h1 className="text-2xl">
+							Questions to fit your course to your need.
+						</h1>
+						<UserQuestion data={questions} submitAnswer={handleQuestion} />
+					</>
+				) : (
+					''
+				)}
 				<span className="loading loading-ball loading-xl"></span>
 				<h1 className="text-2xl">Building your course . . .</h1>
 			</div>
