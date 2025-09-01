@@ -17,3 +17,9 @@ export interface InputCourse {
 	topic: string;
 	difficulty: TopicDifficulty;
 }
+
+export type PreferenceQuestion = {
+	question: string;
+	choices: string[];
+	tool_id: string;
+};
