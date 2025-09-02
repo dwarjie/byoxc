@@ -1,0 +1,53 @@
+import type { Course } from '@/types/common.types';
+
+export const sampleCourse: Course = {
+	title: 'Creating an HTTP Server Using Python',
+	chapters: [
+		{
+			title: 'Setting Up Your Python Environment',
+			description:
+				'Install Python and set up a simple development environment to begin working with HTTP servers.',
+			body: '### Installing Python\n\nEnsure that Python is installed on your system. You can check by running the following command in your terminal:\n\n```bash\npython --version\n```\n\nIf Python is not installed, download the latest version from [python.org](https://www.python.org/downloads/) and follow the installation instructions for your operating system.\n\n### Setting Up a Project Directory\n\nCreate a new folder to keep your server files organized. Use the terminal to navigate to where you want your project to live:\n\n```bash\nmkdir my_http_server\ncd my_http_server\n```\n\n### Creating Your First Python File\n\nInside the folder, create a new Python file that will contain your server logic:\n\n```bash\ntouch server.py\n```\n\nOpen this file in your preferred code editor (e.g., VS Code, Sublime Text, etc.).\n\n### Writing a Simple Print Statement\n\nIn `server.py`, add the following code:\n\n```python\nprint("Server setup complete")\n```\n\nSave the file and run it:\n\n```bash\npython server.py\n```\n\nYou should see the message printed in the terminal. This confirms that your environment is set up and working properly.',
+			exercises: [
+				'Install Python on your system.',
+				'Create a new project folder named `my_http_server`.',
+				'Create a Python file called `server.py`.',
+				'Print a custom message from the `server.py` file.',
+				'Run your script using the terminal.',
+			],
+			resources: [
+				{
+					title: 'Python Official Downloads',
+					link: 'https://www.python.org/downloads/',
+				},
+				{
+					title: 'Installing Python on Windows, macOS, and Linux',
+					link: 'https://realpython.com/installing-python/',
+				},
+			],
+		},
+		{
+			title: 'Creating a Basic HTTP Server',
+			description:
+				'Learn how to create a minimal HTTP server using Python’s built-in `http.server` module.',
+			body: '### Importing the HTTP Server Module\n\nPython comes with a built-in module called `http.server` that lets you quickly create a web server.\n\nStart by importing it in your `server.py` file:\n\n```python\nfrom http.server import SimpleHTTPRequestHandler, HTTPServer\n```\n\n### Setting the Server Address\n\nSpecify the address and port where your server should run:\n\n```python\nhost = \'localhost\'\nport = 8000\n```\n\n### Creating the Server Instance\n\nNow create the server instance and pass it the handler:\n\n```python\nserver = HTTPServer((host, port), SimpleHTTPRequestHandler)\n```\n\nThis sets up a basic server that knows how to respond to simple HTTP requests.\n\n### Starting the Server\n\nTo start the server and keep it running, add the following code:\n\n```python\nprint(f"Starting server at http://{host}:{port}")\nserver.serve_forever()\n```\n\nThis will start the server and it will keep running until you manually stop it using `Ctrl+C` in the terminal.\n\n### Running the Server\n\nSave the file and run the script using:\n\n```bash\npython server.py\n```\n\nNow, open a browser and go to `http://localhost:8000`. You should see a default directory listing. This confirms that the server is up and serving files from the current directory.',
+			exercises: [
+				'Create a basic server using `http.server`.',
+				'Serve files from a different directory and observe the changes.',
+				'Change the port to 8080 and verify it still works.',
+				'Print logs for each incoming request to the terminal.',
+				'Run the server and test it with a browser.',
+			],
+			resources: [
+				{
+					title: 'Python http.server Docs',
+					link: 'https://docs.python.org/3/library/http.server.html',
+				},
+				{
+					title: 'How to Create a Simple HTTP Server in Python',
+					link: 'https://realpython.com/python-http-server/',
+				},
+			],
+		},
+	],
+};
