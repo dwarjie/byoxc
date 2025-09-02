@@ -1,12 +1,18 @@
 import OpenAI from 'openai';
-import { loadPrompt } from '../utils/loadPrompt';
-import type { Course } from '../types/common.types';
+import { loadPrompt } from '@/utils/loadPrompt';
+import type { Course } from '@/types/common.types';
 import type {
 	ChatCompletion,
 	ChatCompletionMessageParam,
 	ChatModel,
 	ResponseFormatJSONObject,
 } from 'openai/resources';
+
+type CompletionData = {
+	model: ChatModel;
+	messages: ChatCompletionMessageParam[];
+	response_format?: ResponseFormatJSONObject;
+};
 
 const openai = new OpenAI({
 	apiKey: import.meta.env.VITE_OPENAI_KEY,
@@ -20,7 +26,7 @@ const getCourse = async (
 	topic: string,
 	difficulty: string,
 ): Promise<Course | false> => {
-	const prompt = await loadPrompt({ topic, difficulty });
+	const prompt = await loadPrompt({ topic, difficulty }, './prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
 
 	try {
@@ -45,20 +51,22 @@ const getCourse = async (
 
 const getCompletion = async (
 	messages: ChatCompletionMessageParam[],
+	jsonResponseFormat?: boolean,
 ): Promise<ChatCompletion> => {
 	try {
 		if (!messages.length)
 			throw new Error("Can't Access OpenAI. Please try again later.");
-
-		const completion = await openai.chat.completions.create({
+		const completionData: CompletionData = {
 			model: MODEL,
 			messages,
-			response_format: RESPONSE_FORMAT,
-		});
+		};
+		if (jsonResponseFormat) completionData['response_format'] = RESPONSE_FORMAT;
+
+		const completion = await openai.chat.completions.create(completionData);
 		return completion;
 	} catch (error) {
 		throw new Error(`Error: ${error}`);
 	}
 };
 
-export { getCourse };
+export { getCourse, getCompletion };

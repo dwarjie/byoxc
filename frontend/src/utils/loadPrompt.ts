@@ -1,10 +1,13 @@
-export const loadPrompt = async (userData: {
-	topic: string;
-	difficulty: string;
-}): Promise<string | false> => {
+export const loadPrompt = async (
+	userData: {
+		topic: string;
+		difficulty?: string;
+	},
+	path: string,
+): Promise<string | false> => {
 	let prompt: string = '';
 	try {
-		const response = await fetch('/prompt.txt');
+		const response = await fetch(path);
 
 		if (response.ok) {
 			const template = await response.text();

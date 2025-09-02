@@ -1,4 +1,5 @@
 type TopicDifficulty = 'beginner' | 'intermediate' | 'advance';
+type ClassifierConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 
 export interface Chapter {
 	title: string;
@@ -18,8 +19,14 @@ export interface InputCourse {
 	difficulty: TopicDifficulty;
 }
 
-export type PreferenceQuestion = {
+export interface PreferenceQuestion {
 	question: string;
 	choices: string[];
 	tool_id: string;
-};
+}
+
+export interface Classifier {
+	valid: boolean;
+	confidence: ClassifierConfidence;
+	reasoning: string;
+}
