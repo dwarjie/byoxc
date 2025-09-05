@@ -10,6 +10,7 @@ export interface Chapter {
 }
 
 export interface Course {
+	id: string;
 	title: string;
 	chapters: Chapter[];
 }

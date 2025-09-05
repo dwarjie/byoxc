@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from 'react';
+import { useEffect, useState, type ChangeEvent } from 'react';
 import { getCourse } from '@/services/openai.service';
 // import UserQuestion from './UserQuestion';
 import CourseViewer from './CourseViewer';
@@ -6,10 +6,12 @@ import { LoadingState, ErrorState } from './common';
 import { inputClassifier } from '@/services/inputClassifier';
 
 import type { Course, InputCourse } from '@/types/common.types';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 function FormGenerate() {
 	// TODO
 	// const [questions, setQuestions] = useState<PreferenceQuestion | null>(null);
+	const { saveItem, getItem } = useLocalStorage('course');
 	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
@@ -52,6 +54,10 @@ function FormGenerate() {
 			}
 
 			setCourse(course);
+
+			let savedCourse = getItem();
+			if (savedCourse) {
+			}
 		} catch (err: any) {
 			setError(err.message);
 		} finally {
