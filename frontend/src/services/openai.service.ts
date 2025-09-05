@@ -19,7 +19,7 @@ const openai = new OpenAI({
 	dangerouslyAllowBrowser: true,
 });
 
-const MODEL: ChatModel = 'o4-mini-2025-04-16';
+const MODEL: ChatModel = 'gpt-5-2025-08-07';
 const RESPONSE_FORMAT: ResponseFormatJSONObject = { type: 'json_object' };
 
 const getCourse = async (
@@ -51,13 +51,14 @@ const getCourse = async (
 
 const getCompletion = async (
 	messages: ChatCompletionMessageParam[],
+	model: ChatModel = MODEL,
 	jsonResponseFormat?: boolean,
 ): Promise<ChatCompletion> => {
 	try {
 		if (!messages.length)
 			throw new Error("Can't Access OpenAI. Please try again later.");
 		const completionData: CompletionData = {
-			model: MODEL,
+			model,
 			messages,
 		};
 		if (jsonResponseFormat) completionData['response_format'] = RESPONSE_FORMAT;
