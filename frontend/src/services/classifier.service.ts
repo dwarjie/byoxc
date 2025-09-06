@@ -5,6 +5,13 @@ import { getParsedCompletion } from './completion.service';
 import { loadPrompt } from '@/utils/loadPrompt';
 import { ClassifierSchema } from '@/schema/classifier.schema';
 
+/**
+ * Pre-prompt Classifier to be run before the main prompt.
+ *
+ * Main purpose is to identify if the topic provided is aligned with the main prompt objective.
+ * @param {string} topic User inputed topic
+ * @returns {boolean} true if the topic is valid otherwise false
+ */
 export const inputClassifier = async (topic: string): Promise<boolean> => {
 	const prompt = await loadPrompt({ topic }, './classifier-prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
