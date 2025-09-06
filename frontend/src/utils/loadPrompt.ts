@@ -1,3 +1,11 @@
+/**
+ * Load the prompt file to be used for the openai.chat.completion service
+ *
+ * File should be a valid .txt file that contains the whole system prompt
+ * @param {object} userData Contains the user data topic and difficulty (optional)
+ * @param {string} path The file path where the .txt located
+ * @returns {Promise<string | false>} whole string data of the file otherwise false
+ */
 export const loadPrompt = async (
 	userData: {
 		topic: string;

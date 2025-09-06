@@ -1,4 +1,4 @@
-type TopicDifficulty = 'beginner' | 'intermediate' | 'advance';
+export type TopicDifficulty = 'beginner' | 'intermediate' | 'advance';
 type ClassifierConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 
 export interface Chapter {

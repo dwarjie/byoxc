@@ -16,6 +16,17 @@ const openai = new OpenAI({
 });
 const DEFAULT_MODEL: ChatModel = 'gpt-4o-mini-2024-07-18';
 
+/**
+ * A service function to call the openai.chat.completion.parse
+ *
+ * This function is different from getCompletion() which returns a normal completion data.
+ * Using zod, the model will return the schema based on the response_format you have provided in a parsed manner.
+ * @param {ChatCompletionMessageParam[]} messages An array of ChatCompletionMessageParam to feed the model
+ * @param {ChatModel} model The openai model to be used. Defaults to "gpt-4o-mini-2024-07-18"
+ * @param {ZodObject} jsonResponseFormat The zod schema to be used as a structured output
+ * @param {string} jsonResponseName The name of the parsed data
+ * @returns {Promise<ParsedChatCompletion<any>>} A parsed valid json data (based on your jsonResponseFormat)
+ */
 export const getParsedCompletion = async (
 	messages: ChatCompletionMessageParam[],
 	model: ChatModel = DEFAULT_MODEL,

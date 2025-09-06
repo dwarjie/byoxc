@@ -4,11 +4,19 @@ import { CourseSchema } from '@/schema/course.schema';
 
 import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { ParsedChatCompletion } from 'openai/resources/chat/completions.mjs';
-import type { Course } from '@/types/common.types';
+import type { Course, TopicDifficulty } from '@/types/common.types';
 
+/**
+ * Generate the main course based on the user input
+ *
+ * This should be called after the Pre-prompt classifier.
+ * @param {string} topic The user inputed topic
+ * @param {TopicDifficulty} difficulty Difficulty level that the user can handle
+ * @returns {Promise<Course | false>} The parsed course in json format otherwise false
+ */
 export const getCourse = async (
 	topic: string,
-	difficulty: string,
+	difficulty: TopicDifficulty,
 ): Promise<Course | false> => {
 	const prompt = await loadPrompt({ topic, difficulty }, './prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
