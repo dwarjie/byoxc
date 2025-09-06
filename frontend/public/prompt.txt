@@ -25,7 +25,6 @@ Your task:
 
 Rules:
 
-- Output must be valid JSON inside a single object.
 - Do not include any prose, markdown, or notes outside of the JSON.
 - Each chapter must include all fields.
 - Focus on practicality and clarity — this will be presented directly to end users.

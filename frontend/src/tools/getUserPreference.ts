@@ -1,4 +1,4 @@
-import type { PreferenceQuestion } from '../types/common.types';
+import type { PreferenceQuestion } from '@/types/common.types';
 
 export const getUserPreference = (
 	question: string,
