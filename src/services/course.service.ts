@@ -1,6 +1,7 @@
 import { loadPrompt } from '@/utils/loadPrompt';
 import { getParsedCompletion } from './completion.service';
 import { CourseSchema } from '@/schema/course.schema';
+import { v1 as uuidv1 } from 'uuid';
 
 import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { ParsedChatCompletion } from 'openai/resources/chat/completions.mjs';
@@ -41,6 +42,7 @@ export const getCourse = async (
 			);
 
 		const parsedCourse: Course = completion.choices[0].message.parsed;
+		parsedCourse.id = uuidv1();
 
 		console.log(parsedCourse);
 		console.log(completion);

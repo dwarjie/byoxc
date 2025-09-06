@@ -1,6 +1,7 @@
 import type { Course } from '@/types/common.types';
 
 export const sampleCourse: Course = {
+	id: 'sampleId',
 	title: 'Creating an HTTP Server Using Python',
 	chapters: [
 		{

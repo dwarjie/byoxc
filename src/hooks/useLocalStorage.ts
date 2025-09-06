@@ -16,7 +16,7 @@ export const useLocalStorage = (key: string) => {
 	 * Get item from localStorage with the provided key
 	 * @returns { object | false } Saved object or false
 	 */
-	const getItem = (): object | false => {
+	const getItem = (): any | false => {
 		const item = localStorage.getItem(key);
 		return item ? JSON.parse(item) : false;
 	};

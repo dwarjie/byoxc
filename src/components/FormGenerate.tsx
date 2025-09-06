@@ -1,15 +1,14 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCourse } from '@/services/course.service';
-// import UserQuestion from './UserQuestion';
 import CourseViewer from './CourseViewer';
 import { LoadingState, ErrorState } from './common';
 import { inputClassifier } from '@/services/classifier.service';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import type { Course, InputCourse } from '@/types/common.types';
 
 function FormGenerate() {
-	// TODO
-	// const [questions, setQuestions] = useState<PreferenceQuestion | null>(null);
+	const { saveItem, getItem } = useLocalStorage('course');
 	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
@@ -25,11 +24,6 @@ function FormGenerate() {
 		const { name, value } = event.target;
 		setInput({ ...input, [name]: value });
 	};
-
-	// TODO
-	// const handleQuestion = (answer: string) => {
-	// 	console.log(answer);
-	// };
 
 	const generate = async (): Promise<void> => {
 		if (input.topic.trim() === '' || input.difficulty.trim() === '')
@@ -49,6 +43,14 @@ function FormGenerate() {
 
 			if (!course) {
 				throw new Error('Something went wrong. Please try again later...');
+			}
+
+			let existingCourse: Course[] | false = getItem();
+			if (!existingCourse) {
+				saveItem(course);
+			} else {
+				existingCourse.push(course);
+				saveItem(course);
 			}
 
 			setCourse(course);
