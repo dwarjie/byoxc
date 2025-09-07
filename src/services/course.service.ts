@@ -19,7 +19,7 @@ export const getCourse = async (
 	topic: string,
 	difficulty: TopicDifficulty,
 ): Promise<Course | false> => {
-	const prompt = await loadPrompt({ topic, difficulty }, './prompt.txt');
+	const prompt = await loadPrompt({ topic, difficulty }, 'prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
 
 	try {

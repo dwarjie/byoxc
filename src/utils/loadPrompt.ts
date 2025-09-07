@@ -15,7 +15,7 @@ export const loadPrompt = async (
 ): Promise<string | false> => {
 	let prompt: string = '';
 	try {
-		const response = await fetch(path);
+		const response = await fetch(`/byoxc/${path}`);
 
 		if (response.ok) {
 			const template = await response.text();

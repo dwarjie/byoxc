@@ -1,14 +1,16 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCourse } from '@/services/course.service';
-import CourseViewer from './CourseViewer';
-import { LoadingState, ErrorState } from './common';
+import CourseViewer from '@/components/CourseViewer';
+import { LoadingState, ErrorState } from '@/components/index';
 import { inputClassifier } from '@/services/classifier.service';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import type { Course, InputCourse } from '@/types/common.types';
 
-function FormGenerate() {
-	const { saveItem, getItem } = useLocalStorage('course');
+export function FormGenerate() {
+	const { saveItem, getItem } = useLocalStorage(
+		import.meta.env.VITE_COURSE_KEY,
+	);
 	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
@@ -46,11 +48,12 @@ function FormGenerate() {
 			}
 
 			let existingCourse: Course[] | false = getItem();
+			console.log(existingCourse);
 			if (!existingCourse) {
-				saveItem(course);
+				saveItem([course]);
 			} else {
 				existingCourse.push(course);
-				saveItem(course);
+				saveItem(existingCourse);
 			}
 
 			setCourse(course);
@@ -107,5 +110,3 @@ function FormGenerate() {
 		</div>
 	);
 }
-
-export default FormGenerate;

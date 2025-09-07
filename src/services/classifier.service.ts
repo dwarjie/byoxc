@@ -13,7 +13,7 @@ import { ClassifierSchema } from '@/schema/classifier.schema';
  * @returns {boolean} true if the topic is valid otherwise false
  */
 export const inputClassifier = async (topic: string): Promise<boolean> => {
-	const prompt = await loadPrompt({ topic }, './classifier-prompt.txt');
+	const prompt = await loadPrompt({ topic }, 'classifier-prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
 
 	try {
