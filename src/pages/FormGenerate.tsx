@@ -6,8 +6,10 @@ import { inputClassifier } from '@/services/classifier.service';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import type { Course, InputCourse } from '@/types/common.types';
+import { useNavigate } from 'react-router';
 
 export function FormGenerate() {
+	const navigate = useNavigate();
 	const { saveItem, getItem } = useLocalStorage(
 		import.meta.env.VITE_COURSE_KEY,
 	);
@@ -57,6 +59,7 @@ export function FormGenerate() {
 			}
 
 			setCourse(course);
+			navigate(`/byoxc/courses/${course.id}`);
 		} catch (err: any) {
 			setError(err.message);
 		} finally {

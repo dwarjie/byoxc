@@ -2,8 +2,14 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { CourseList, FormGenerate, LandingPage } from './pages/index';
+import {
+	CourseList,
+	CourseSummary,
+	FormGenerate,
+	LandingPage,
+} from './pages/index';
 import { CourseLayout } from './layout';
+import { loader } from './loader';
 
 const router = createBrowserRouter([
 	{
@@ -12,6 +18,7 @@ const router = createBrowserRouter([
 		children: [
 			{ index: true, Component: LandingPage },
 			{ path: 'courses', Component: CourseList },
+			{ path: 'courses/:courseId', Component: CourseSummary, loader: loader },
 			{ path: 'generate', Component: FormGenerate },
 		],
 	},

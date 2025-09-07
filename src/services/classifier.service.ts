@@ -2,7 +2,7 @@ import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { Classifier } from '@/types/common.types';
 import type { ParsedChatCompletion } from 'openai/resources/chat/completions.mjs';
 import { getParsedCompletion } from './completion.service';
-import { loadPrompt } from '@/utils/loadPrompt';
+import { loadPrompt } from '@/utils';
 import { ClassifierSchema } from '@/schema/classifier.schema';
 
 /**
