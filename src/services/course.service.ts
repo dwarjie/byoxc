@@ -1,4 +1,4 @@
-import { loadPrompt } from '@/utils/loadPrompt';
+import { loadPrompt } from '@/utils';
 import { getParsedCompletion } from './completion.service';
 import { CourseSchema } from '@/schema/course.schema';
 import { v1 as uuidv1 } from 'uuid';

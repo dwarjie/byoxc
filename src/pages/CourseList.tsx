@@ -20,7 +20,7 @@ export function CourseList() {
 			<div className="mt-10 flex flex-row flex-wrap gap-9">
 				{courses &&
 					courses.map((course) => (
-						<Link to={'/'} key={course.id}>
+						<Link to={`/byoxc/courses/${course.id}`} key={course.id}>
 							<CourseCard title={course.title} />
 						</Link>
 					))}
