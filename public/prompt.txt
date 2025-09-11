@@ -7,6 +7,11 @@ Generate a complete course outline in JSON format.
 
 Your task:
 
+- Create a course description:
+  - A compact overview (max 500 characters) about what the learner will learn in this course.
+  - It should clearly explain what skills will be gained, the topics covered, and the value of the course.
+  - Avoid being vague or too short — give enough detail for the learner to decide if the course is worth their time.
+  - Keep it clear, direct, and engaging.
 - Divide the course into small chunks of chapters based on the learner's difficulty level (beginner, intermediate, advanced).
 - For each chapter, include:
   - **title**: A concise and clear chapter name.

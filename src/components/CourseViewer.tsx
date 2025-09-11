@@ -1,4 +1,4 @@
-import type { Course } from '../types/common.types';
+import type { Course } from '@/types/common.types';
 
 interface CourseViewerProps {
 	course: Course;

@@ -10,7 +10,6 @@ function UserQuestion({ data, submitAnswer }: UserQuestionProps) {
 	const [answer, setAnswer] = useState<string>('');
 
 	const handleSelect = (answer: string): void => {
-		console.log(answer);
 		setAnswer(answer);
 	};
 

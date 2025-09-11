@@ -1,4 +1,4 @@
-import { loadPrompt } from '@/utils/loadPrompt';
+import { loadPrompt } from '@/utils';
 import { getParsedCompletion } from './completion.service';
 import { CourseSchema } from '@/schema/course.schema';
 
@@ -18,7 +18,7 @@ export const getCourse = async (
 	topic: string,
 	difficulty: TopicDifficulty,
 ): Promise<Course | false> => {
-	const prompt = await loadPrompt({ topic, difficulty }, './prompt.txt');
+	const prompt = await loadPrompt({ topic, difficulty }, 'prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
 
 	try {
@@ -30,7 +30,7 @@ export const getCourse = async (
 
 		const completion: ParsedChatCompletion<Course> = await getParsedCompletion(
 			messages,
-			'gpt-4o-mini-2024-07-18',
+			'gpt-5-2025-08-07',
 			CourseSchema,
 			'course',
 		);
@@ -42,8 +42,6 @@ export const getCourse = async (
 
 		const parsedCourse: Course = completion.choices[0].message.parsed;
 
-		console.log(parsedCourse);
-		console.log(completion);
 		return parsedCourse;
 	} catch (err) {
 		console.error(err);

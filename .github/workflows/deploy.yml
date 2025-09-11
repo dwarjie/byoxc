@@ -37,6 +37,7 @@ jobs:
       - name: Build
         env:
           VITE_OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+          VITE_COURSE_KEY: ${{ secrets.COURSE_KEY }}
         run: npm run build
       - name: Setup Pages
         uses: actions/configure-pages@v4

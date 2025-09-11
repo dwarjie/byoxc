@@ -2,7 +2,7 @@ import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { Classifier } from '@/types/common.types';
 import type { ParsedChatCompletion } from 'openai/resources/chat/completions.mjs';
 import { getParsedCompletion } from './completion.service';
-import { loadPrompt } from '@/utils/loadPrompt';
+import { loadPrompt } from '@/utils';
 import { ClassifierSchema } from '@/schema/classifier.schema';
 
 /**
@@ -13,7 +13,7 @@ import { ClassifierSchema } from '@/schema/classifier.schema';
  * @returns {boolean} true if the topic is valid otherwise false
  */
 export const inputClassifier = async (topic: string): Promise<boolean> => {
-	const prompt = await loadPrompt({ topic }, './classifier-prompt.txt');
+	const prompt = await loadPrompt({ topic }, 'classifier-prompt.txt');
 	const messages: ChatCompletionMessageParam[] = [];
 
 	try {
@@ -38,8 +38,6 @@ export const inputClassifier = async (topic: string): Promise<boolean> => {
 
 		const parsedClassifier: Classifier = completion.choices[0].message.parsed;
 
-		console.log(parsedClassifier);
-		console.log(completion);
 		return parsedClassifier.valid;
 	} catch (err) {
 		console.error(err);

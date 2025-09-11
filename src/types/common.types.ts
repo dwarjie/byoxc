@@ -2,6 +2,7 @@ export type TopicDifficulty = 'beginner' | 'intermediate' | 'advance';
 type ClassifierConfidence = 'HIGH' | 'MEDIUM' | 'LOW';
 
 export interface Chapter {
+	id: string;
 	title: string;
 	description: string;
 	body: string;
@@ -12,6 +13,7 @@ export interface Chapter {
 export interface Course {
 	id: string;
 	title: string;
+	description: string;
 	chapters: Chapter[];
 }
 
