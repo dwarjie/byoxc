@@ -1,69 +1,66 @@
-# React + TypeScript + Vite
+# BYOXC (Build Your Own Course - MVP)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is an **MVP (Minimum Viable Product)** for an AI-powered platform that generates project-based learning courses (inspired by CodeCrafters, Build Your Own X, and FullStackOpen).  
+The goal of this MVP is to validate whether **AI can generate useful, structured, and practical learning paths** for developers.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Purpose
 
-## Expanding the ESLint configuration
+- Test if course generation using AI is possible.
+- Provide users with a starting point for **guided, project-based learning**.
+- Gather feedback to improve UI, course quality, and overall user experience.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## ⚡ Features (MVP)
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+- Generate a new course with a single click.
+- Display and manage your generated courses.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** React + TailwindCSS + DaisyUI
+- **Backend:** None for now
+- **AI Integration:** OpenAI API (LLM for course creation)
+- **Database:** LocalStorage for now
+
+---
+
+## 📦 Installation & Setup
+
+```bash
+# Clone the repo
+git clone https://github.com/yourusername/byoxc.git
+cd byoxc
+
+# Install dependencies
+npm install   # or yarn install
+
+# Run the development server
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 📌 Notes
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- This is an MVP – expect bugs and missing features.
+- Current focus is on validating course generation rather than polish.
+- Many improvements are planned:
+  - Function calling to get the preferences of the user.
+  - Progress tracking.
+  - Sharable learning paths.
+  - Better UI/UX.
+  - Better generation.
+  - Polished Pre-prompt classifier.
+  - Login feature
+  - Proper Database
+
+---
+
+## 🤝 Contributing
+
+Feedback are welcome! Open an issue or PR to suggest improvements.
