@@ -2,7 +2,6 @@ import CourseCard from '@/components/CourseCard';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import type { Course } from '@/types/common.types';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router';
 
 export function CourseList() {
 	const { getItem } = useLocalStorage(import.meta.env.VITE_COURSE_KEY);
@@ -10,23 +9,19 @@ export function CourseList() {
 
 	useEffect(() => {
 		const currentCourses = getItem();
-		console.log(currentCourses);
 		if (currentCourses) setCourses(currentCourses);
 	}, []);
 
 	return (
-		<div>
-			<h1 className="text-7xl font-semibold">Your Courses</h1>
-			<div className="mt-10 flex flex-row flex-wrap gap-9">
+		<div className="bg-base-100 min-h-screen p-10">
+			<h1 className="mb-8 text-4xl font-bold">Your Courses</h1>
+
+			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+				<CourseCard title="Generate a new course" emptyState={true} />
 				{courses &&
 					courses.map((course) => (
-						<Link to={`/byoxc/courses/${course.id}`} key={course.id}>
-							<CourseCard title={course.title} />
-						</Link>
+						<CourseCard title={course.title} id={course.id} key={course.id} />
 					))}
-				<Link to={'/byoxc/generate'}>
-					<CourseCard title="Generate a new course" emptyState={true} />
-				</Link>
 			</div>
 		</div>
 	);

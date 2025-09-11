@@ -38,8 +38,6 @@ export const inputClassifier = async (topic: string): Promise<boolean> => {
 
 		const parsedClassifier: Classifier = completion.choices[0].message.parsed;
 
-		console.log(parsedClassifier);
-		console.log(completion);
 		return parsedClassifier.valid;
 	} catch (err) {
 		console.error(err);

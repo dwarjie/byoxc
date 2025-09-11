@@ -4,6 +4,7 @@
 @plugin "daisyui" {
     themes: dark --default, night
 }
+@plugin "@tailwindcss/typography";
 
 @theme {
     --font-main: "Inter", serif;
