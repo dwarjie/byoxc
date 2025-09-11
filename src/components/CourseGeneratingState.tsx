@@ -6,7 +6,7 @@ export function CourseGeneratingState() {
 					data-prefix="$"
 					className="text-success flex items-center text-base"
 				>
-					<code>Generating your course</code>
+					<code>Generating your course. This may take some time.</code>
 					<span className="text-primary ml-2 animate-pulse font-bold">_</span>
 				</pre>
 			</div>
