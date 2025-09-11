@@ -1,6 +1,7 @@
 # BYOXC (Build Your Own Course - MVP)
 
-This is an **MVP (Minimum Viable Product)** for an AI-powered platform that generates project-based learning courses (inspired by CodeCrafters, Build Your Own X, and FullStackOpen).  
+This is an **MVP (Minimum Viable Product)** for an AI-powered platform that generates project-based learning courses (inspired by CodeCrafters, Build Your Own X, and FullStackOpen).
+
 The goal of this MVP is to validate whether **AI can generate useful, structured, and practical learning paths** for developers.
 
 ---
@@ -26,22 +27,6 @@ The goal of this MVP is to validate whether **AI can generate useful, structured
 - **Backend:** None for now
 - **AI Integration:** OpenAI API (LLM for course creation)
 - **Database:** LocalStorage for now
-
----
-
-## 📦 Installation & Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/byoxc.git
-cd byoxc
-
-# Install dependencies
-npm install   # or yarn install
-
-# Run the development server
-npm run dev
-```
 
 ---
 
