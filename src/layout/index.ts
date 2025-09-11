@@ -1,1 +1,1 @@
-export * from './CourseLayout';
+export * from './BaseLayout';

@@ -6,6 +6,7 @@ const ResourcesSchema = z.object({
 });
 
 const ChapterSchema = z.object({
+	id: z.uuid({ version: 'v1' }),
 	title: z.string(),
 	description: z.string(),
 	body: z.string(),
@@ -14,6 +15,8 @@ const ChapterSchema = z.object({
 });
 
 export const CourseSchema = z.object({
+	id: z.uuid({ version: 'v1' }),
 	title: z.string(),
+	description: z.string(),
 	chapters: z.array(ChapterSchema),
 });

@@ -8,17 +8,30 @@ import {
 	FormGenerate,
 	LandingPage,
 } from './pages/index';
-import { CourseLayout } from './layout';
 import { loader } from './loader';
+import { BaseLayout } from './layout';
+import { CourseLayout } from './layout/CourseLayout';
+import { Chapter } from './pages/Chapter';
 
 const router = createBrowserRouter([
 	{
 		path: '/byoxc/',
-		Component: CourseLayout,
+		Component: BaseLayout,
 		children: [
 			{ index: true, Component: LandingPage },
 			{ path: 'courses', Component: CourseList },
-			{ path: 'courses/:courseId', Component: CourseSummary, loader: loader },
+			{
+				path: 'courses/:courseId',
+				Component: CourseLayout,
+				children: [
+					{ index: true, Component: CourseSummary, loader: loader },
+					{
+						path: '/byoxc/courses/:courseId/:chapterId',
+						Component: Chapter,
+						loader: loader,
+					},
+				],
+			},
 			{ path: 'generate', Component: FormGenerate },
 		],
 	},

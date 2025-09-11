@@ -1,19 +1,17 @@
 import { useState, type ChangeEvent } from 'react';
 import { getCourse } from '@/services/course.service';
-import CourseViewer from '@/components/CourseViewer';
-import { LoadingState, ErrorState } from '@/components/index';
+import { CourseGeneratingState, ErrorState } from '@/components/index';
 import { inputClassifier } from '@/services/classifier.service';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 
 import type { Course, InputCourse } from '@/types/common.types';
-import { useNavigate } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 export function FormGenerate() {
 	const navigate = useNavigate();
 	const { saveItem, getItem } = useLocalStorage(
 		import.meta.env.VITE_COURSE_KEY,
 	);
-	const [course, setCourse] = useState<Course | null>(null);
 	const [input, setInput] = useState<InputCourse>({
 		topic: '',
 		difficulty: 'beginner',
@@ -50,15 +48,12 @@ export function FormGenerate() {
 			}
 
 			let existingCourse: Course[] | false = getItem();
-			console.log(existingCourse);
 			if (!existingCourse) {
 				saveItem([course]);
 			} else {
 				existingCourse.push(course);
 				saveItem(existingCourse);
 			}
-
-			setCourse(course);
 			navigate(`/byoxc/courses/${course.id}`);
 		} catch (err: any) {
 			setError(err.message);
@@ -67,49 +62,100 @@ export function FormGenerate() {
 		}
 	};
 
+	const resetForm = () => {
+		setError(null);
+		setInput({
+			topic: '',
+			difficulty: 'beginner',
+		});
+	};
+
 	if (loading) {
-		return <LoadingState />;
+		return <CourseGeneratingState />;
 	}
 
-	if (error) return <ErrorState message={error} />;
+	if (error) return <ErrorState message={error} reset={resetForm} />;
 
 	return (
-		<div className="flex h-full w-full flex-col items-center justify-center gap-2.5">
-			<h1 className="text-3xl">
-				Build Your Own X Course! (with just one click)
-			</h1>
-			<form className="flex w-full flex-col justify-center gap-4">
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">
-						What application/program you want to build?
-					</legend>
-					<input
-						type="text"
-						name="topic"
-						value={input.topic}
-						className="input w-full"
-						placeholder="e.g., HTTP Server, Git"
-						onChange={(event) => handleForm(event)}
-					/>
-				</fieldset>
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Difficulty Level</legend>
-					<select
-						name="difficulty"
-						value={input.difficulty}
-						className="select"
-						onChange={(event) => handleForm(event)}
-					>
-						<option value="beginner">Beginner</option>
-						<option value="intermediate">Intermediate</option>
-						<option value="advance">Advance</option>
-					</select>
-				</fieldset>
-				<button className="btn btn-soft btn-primary" onClick={generate}>
-					Primary
-				</button>
-			</form>
-			{course ? <CourseViewer course={course} /> : ''}
+		<div className="flex min-h-screen items-center justify-center">
+			<div className="card bg-base-100 w-full max-w-3xl shadow-2xl">
+				<div className="card-body space-y-8">
+					<div className="flex justify-start">
+						<Link to={'/byoxc/courses'} relative="path">
+							<button className="btn btn-soft">⬅ Back to Courses</button>
+						</Link>
+					</div>
+
+					<div className="space-y-2 text-center">
+						<h2 className="text-4xl font-bold">Build Your Own X Course 🚀</h2>
+						<p className="text-base text-gray-500">
+							Generate a project-based learning course in just one click.
+						</p>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text font-medium">
+								What application/program do you want to build?
+							</span>
+						</label>
+						<input
+							type="text"
+							name="topic"
+							value={input.topic}
+							className="input input-bordered w-full"
+							placeholder="e.g., HTTP Server, Git, Chatbot"
+							onChange={(event) => handleForm(event)}
+						/>
+					</div>
+
+					<div className="form-control">
+						<label className="label">
+							<span className="label-text font-medium">Difficulty Level</span>
+						</label>
+						<select
+							className="select select-bordered w-full"
+							name="difficulty"
+							value={input.difficulty}
+							onChange={(event) => handleForm(event)}
+						>
+							<option>Beginner</option>
+							<option>Intermediate</option>
+							<option>Advanced</option>
+						</select>
+					</div>
+
+					<div className="alert alert-info shadow-md">
+						<div>
+							<h3 className="font-bold">💡 Tips for Best Results</h3>
+							<ul className="mt-2 list-inside list-disc text-sm">
+								<li>
+									Make your prompt{' '}
+									<span className="font-medium">project-based</span> (with a
+									real output).
+								</li>
+								<li>
+									Specify{' '}
+									<span className="font-medium">frameworks and language</span>{' '}
+									if possible.
+								</li>
+								<li>
+									Be as <span className="font-medium">specific</span> as
+									possible for clearer results.
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div className="card-actions justify-center">
+						<button
+							className="btn btn-primary w-full text-lg"
+							onClick={generate}
+						>
+							✨ Generate Course
+						</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }

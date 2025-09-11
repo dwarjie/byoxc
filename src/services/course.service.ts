@@ -1,7 +1,6 @@
 import { loadPrompt } from '@/utils';
 import { getParsedCompletion } from './completion.service';
 import { CourseSchema } from '@/schema/course.schema';
-import { v1 as uuidv1 } from 'uuid';
 
 import type { ChatCompletionMessageParam } from 'openai/resources';
 import type { ParsedChatCompletion } from 'openai/resources/chat/completions.mjs';
@@ -31,7 +30,7 @@ export const getCourse = async (
 
 		const completion: ParsedChatCompletion<Course> = await getParsedCompletion(
 			messages,
-			'gpt-4o-mini-2024-07-18',
+			'gpt-5-2025-08-07',
 			CourseSchema,
 			'course',
 		);
@@ -42,10 +41,7 @@ export const getCourse = async (
 			);
 
 		const parsedCourse: Course = completion.choices[0].message.parsed;
-		parsedCourse.id = uuidv1();
 
-		console.log(parsedCourse);
-		console.log(completion);
 		return parsedCourse;
 	} catch (err) {
 		console.error(err);
